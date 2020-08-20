@@ -1,0 +1,69 @@
+using System;
+
+namespace DZ
+{
+    class Program
+    {
+
+        public static void Main(string[] args)
+        {
+            GetData();
+        }
+        public static void GetData()
+        {
+            Console.WriteLine("Введите имя первого человека");
+            string name1 = Console.ReadLine();
+            Console.WriteLine("Введите имя второго человека");
+            string name2 = Console.ReadLine();
+            Console.WriteLine("Введите возраст первого человека");
+            int age1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите возраст второго человека");
+            int age2 = Convert.ToInt32(Console.ReadLine());
+            ValidData(name1, name2, age1, age2);
+        }
+        public static void ValidData(string name1, string name2, int age1, int age2)
+        {
+           if (age1 > 0 && age2 > 0 && age1 != age2)
+            {
+                Console.WriteLine("человек с каким именем старше?");
+                string name = Console.ReadLine();
+                FindAnswer(name, name1, name2, age1, age2);
+            }
+            else
+            {
+                Console.WriteLine("Введены неверные данные. Повторите ввод.");
+                GetData();
+            }
+        }
+        public static void FindAnswer(string name, string name1, string name2, int age1, int age2)
+        {
+        
+            if ((name == name1 && age1 > age2) || (name == name2 && age2 > age1))
+            {
+               string text = "Верно.";
+                PrintAnswer(text, name, Math.Abs(age1 - age2));
+            }
+            else if (name == name1 && age1<age2)
+            {
+               string text = "Неверно.";
+               PrintAnswer(text, name2, age2 - age1);
+            }
+            else if (name == name2 && age2 < age1)
+            {
+               string text = "Неверно.";
+               PrintAnswer(text, name1, age1 - age2);
+            }
+            else
+            {
+               Console.WriteLine("Это имя не было введено ранее");
+               ValidData(name1, name2, age1, age2);
+            }
+
+        }
+        static void PrintAnswer(string text, string name, int difference)
+        {
+            Console.Write(text + " " + name + " старше на " + difference + " лет.");
+        }
+    }
+
+}
